@@ -1,146 +1,193 @@
 import Vue from 'vue'
-import * as common from '../../common'
-import * as config from '../../config'
-import api from '../../api/request'
+import * as common from '../../utils/common'
+import * as config from '../../utils/config'
+import httpCli from '../../api/request'
+import store from '../../store/index'
+import {Toast} from 'vant'
+
 export default {
   state: {
-    shopList:[],
-    removeShopListID:[],
-    address:{}
+    loading:true,
+    shopInfo:{},
+    invalidGoodsList:[],
+    resultInfo:{}
   },
   getters: {
-    finalVipPrice(state){
-      return parseInt(state.shopList.reduce((total,item) => total + (item.checkStatus ? item.goodsNum*1 : 0), 0))
+    changeAllStatus(state){
+      if (state.shopInfo.goodsList && state.shopInfo.goodsList.length){
+        return state.shopInfo.goodsList.filter(item => !item.goodsChooseStatus).length
+      }
     },
-    finalPrice(state){
-      return parseInt(state.shopList.reduce((total,item) => total + (item.checkStatus ? item.goodsNum*1 : 0), 0))
+    changeAllDeleteStatus(state){
+      if (state.shopInfo.goodsList && state.shopInfo.goodsList.length) {
+        return state.shopInfo.goodsList.filter(item => !item.checkRemoveStatus).length
+      }
     },
-    shopListCheckStatusTrue(state){
-      return state.shopList.filter(item => item.checkStatus == true)
-    },
-    shopListRemoveCheckStatusTrue(state){
-      return state.shopList.filter(item => item.checkRemoveStatus == true)
+    deleteTotal(state){
+      if (state.shopInfo.goodsList && state.shopInfo.goodsList.length) {
+        return state.shopInfo.goodsList.filter(item => item.checkRemoveStatus)
+      }
     },
   },
   mutations: {
-    setShopList(state,data){
-      state.shopList = data
-      state.shopList.map((item,index) => {
-        item.checkStatus = true
+    setShopInfo(state,data){
+      state.shopInfo = data
+      state.invalidGoodsList = data.invalidGoodsList
+      state.shopInfo.goodsList.map((item,index) => {
+        item.goodsChooseStatus = item.goodsChooseStatus == '1' ? true : false
         item.checkRemoveStatus = false
       })
     },
     setChangeStatusResult(state,data){
-      for (let i = 0;i<state.shopList.length;i++){
-        let item = state.shopList[i]
-        if (item.goodsId === data.goodsId){
-          item.checkStatus = !item.checkStatus
+      for (let i = 0;i<state.shopInfo.goodsList.length;i++){
+        let item = state.shopInfo.goodsList[i]
+        if ((item.goodsId + item.goodsEt) === (data.goodsId + data.goodsEt)){
+          data.manageStatus ? item.checkRemoveStatus = !item.checkRemoveStatus : item.goodsChooseStatus = !item.goodsChooseStatus
         }
-        Vue.set(state.shopList,i,item)
+        Vue.set(state.shopInfo.goodsList,i,item)
       }
+      !data.manageStatus ? store.commit('_setResultInfo') : ''
+    },
+    setAllChangeChooiseStatus(state,data){
+      for (let i in state.shopInfo.goodsList){
+        let item = state.shopInfo.goodsList[i]
+        data.manageStatus ? item.checkRemoveStatus = data.status :item.goodsChooseStatus = data.status
+        Vue.set(state.shopInfo.goodsList,i,item)
+      }
+      !data.manageStatus ? store.commit('_setResultInfo') : ''
     },
     addChangeCount(state,data){
-      state.shopList.map(item => {
+      state.shopInfo.goodsList.map(item => {
         if (item.goodsId === data.goodsId){
-          let data = {
+          let apply = {
             goodsId:item.goodsId,
+            goodsNum:1,
+            goodsEt:item.goodsEt
           }
-          api({
+          httpCli({
             url:config.URL_CART_PLUS,
-            data:data
+            data:apply
           })
             .then(res => {
               if (res.errorCode == 100){
-                item.goodsNum = res.data.result
+                item.goodsNum = res.data.goodsFinalNum
+                store.commit('_setResultInfo')
               }
             })
         }
       })
     },
     reduceChangeCount(state,data){
-      state.shopList.map(item => {
+      state.shopInfo.goodsList.map(item => {
         if (item.goodsId === data.goodsId) {
-          let data = {
+          let apply = {
             goodsId: item.goodsId,
-            goodsNum: item.goodsNum
+            goodsEt:item.goodsEt
           }
-          api({
+          httpCli({
             url: config.URL_CART_REDUCE,
-            data: data
+            data: apply
           })
             .then(res => {
               if (res.errorCode == 100) {
-                item.goodsNum = res.data.result
+                item.goodsNum = res.data.goodsFinalNum
+                store.commit('_setResultInfo')
               }
             })
         }
       })
     },
-    setCheckAllStatus(state,data){
-      for (let i = 0;i<state.shopList.length;i++){
-        let item = state.shopList[i]
-        item.checkStatus = data
-        Vue.set(state.shopList,i,item)
-      }
-    },
-    setChangeGoodRemoveStatus(state,data){
-      for (let i = 0;i<state.shopList.length;i++){
-        let item = state.shopList[i]
-        if (item.goodsId === data.goodsId){
-          item.checkRemoveStatus = !item.checkRemoveStatus
-        }
-        Vue.set(state.shopList,i,item)
-      }
-    },
-    setCheckAllRemoveStatus(state,data){
-      for (let i = 0;i<state.shopList.length;i++){
-        let item = state.shopList[i]
-        item.checkRemoveStatus = data
-        Vue.set(state.shopList,i,item)
-      }
-    },
     setRemoveShopList(state,data){
-      console.log(data)
       let apply = {
-        goodsIds:data.join(",")
+        goodsList:JSON.stringify(data.removeShopIdList)
       }
-      console.log(apply)
-      api({
+      httpCli({
         url:config.URL_CART_REMOVE,
         data:apply
       })
         .then(res => {
           if (res.errorCode == 100){
-            state.shopList = state.shopList.filter(item => (data.indexOf(item.goodsId) == -1))
+            let idList = []
+            data.removeFilterShopIdList.map(item => idList.push(item.goodsCheckRemoveId))
+            state.shopInfo.goodsList = state.shopInfo.goodsList.filter(item => idList.indexOf(item.goodsId + item.goodsEt) == -1)
+            Toast.success('刪除商品成功')
           }
         })
     },
-
-    setOrderAddress(state,data){
-      state.address = data
+    setClearInvalid(state){
+      Toast.loading({
+        mask: true,
+        message: '清理中...',
+        loadingType:'spinner',
+        duration:0
+      });
+      httpCli({
+        url:config.URL_CART_INVALID_CLEAR
+      })
+        .then(res => {
+          if (res.errorCode == 100){
+            state.invalidGoodsList = []
+            Toast.success('清理成功')
+          }
+        })
+        .catch(err => {
+          Toast.clear()
+        })
+    },
+    clearResultInfo(state){
+      state.resultInfo = {}
+    },
+    _setResultInfo(state,data){
+      let goodsList = []
+      let chekcList = state.shopInfo.goodsList.filter(item => item.goodsChooseStatus == true)
+      chekcList.map((item,index) => {
+        let obj = {}
+        obj.goodsId = item.goodsId
+        obj.goodsNum = item.goodsNum
+        obj.goodsEt = item.goodsEt
+        goodsList.push(obj)
+      })
+      let apply = {
+        goodsList:JSON.stringify(goodsList),
+        from:'cart',
+      }
+      store.dispatch('getPayCalculate',apply)
+        .then(res => {
+          state.resultInfo = res
+        })
+    },
+    setErrorLoading(state,data){
+      state.loading = false
+      store.dispatch('reloadLoading')
+        .then(res => {
+          store.dispatch('getShopInfo')
+        })
     }
   },
   actions: {
-    getShopList({commit,data}){
+    getShopInfo({commit,state},data){
       return new Promise((resolve,reject) => {
-        api({
+        httpCli({
           url:config.URL_CART_LIST
         })
           .then(res => {
+            resolve(res)
+            state.loading = false
             if (res.errorCode == 100){
-              commit('setShopList',res.data.goodsList)
-              resolve(res)
-            }else {
-              reject(res)
+              commit('setShopInfo',res.data)
             }
           })
           .catch(err => {
             reject(err)
+            commit('setErrorLoading')
           })
       })
     },
     changeGoodStatus({commit},data){
       commit('setChangeStatusResult',data)
+    },
+    getAllChangeChooiseStatus({commit},data){
+      commit('setAllChangeChooiseStatus',data)
     },
     addCount({commit},data){
       commit('addChangeCount',data)
@@ -148,21 +195,11 @@ export default {
     reduceCount({commit},data){
       commit('reduceChangeCount',data)
     },
-    getCheckAllStatus({commit},data){
-      commit('setCheckAllStatus',data)
-    },
-    changeGoodRemoveStatus({commit},data){
-      commit('setChangeGoodRemoveStatus',data)
-    },
-    getCheckAllRemoveStatus({commit},data){
-      commit('setCheckAllRemoveStatus',data)
-    },
     getRemoveShopList({commit},data){
       commit('setRemoveShopList',data)
     },
-
-    getOrderAddress({commit},data){
-      commit('setOrderAddress',data)
+    getClearInvalid({commit}){
+      commit('setClearInvalid')
     }
   }
 }

@@ -1,3 +1,49 @@
+.spinner {
+  margin: 100px auto 0;
+  width: 150px;
+  text-align: center;
+}
+
+.spinner > div {
+  width: 30px;
+  height: 30px;
+  background-color: #F2180C;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+  animation: bouncedelay 1.4s infinite ease-in-out;
+  /* Prevent first frame from flickering when animation starts */
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0.0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 40% {
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+    }
+}
+
+
 @-webkit-keyframes van-slide-up-enter {
   0% {
     -webkit-transform: translate3d(0, 100%, 0);
@@ -252,51 +298,6 @@ ol, ul {
 button, input, textarea {
   font: inherit;
   color: inherit
-}
-
-.spinner {
-  margin: 100px auto 0;
-  width: 150px;
-  text-align: center;
-}
-
-.spinner > div {
-  width: 30px;
-  height: 30px;
-  background-color: #f82a59;
-
-  border-radius: 100%;
-  display: inline-block;
-  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
-  animation: bouncedelay 1.4s infinite ease-in-out;
-  /* Prevent first frame from flickering when animation starts */
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-.spinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-
-.spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-
-@-webkit-keyframes bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0.0) }
-  40% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes bouncedelay {
-  0%, 80%, 100% {
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  } 40% {
-      transform: scale(1.0);
-      -webkit-transform: scale(1.0);
-    }
 }
 
 .van-ellipsis {
@@ -1657,7 +1658,7 @@ button, input, textarea {
   position: absolute;
   pointer-events: none;
   box-sizing: border-box;
-  left: 30px;
+  left: 0;
   right: 0;
   bottom: 0;
   -webkit-transform: scaleY(.5);
@@ -2101,6 +2102,7 @@ button, input, textarea {
 }
 
 .van-collapse-item__wrapper {
+  padding-bottom: 5px;
   overflow: hidden;
   will-change: height;
   -webkit-transition: height .3s ease-in-out;
@@ -2108,9 +2110,9 @@ button, input, textarea {
 }
 
 .van-collapse-item__content {
-  color: #969799;
-  padding: 15px;
-  font-size: 13px;
+  padding: 25px 30px 0;
+  font-size: 26px;
+  color: rgb(153,153,153);
   line-height: 1.5;
   background-color: #fff
 }
@@ -2365,7 +2367,7 @@ button, input, textarea {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  padding: 14px 30px;
+  padding: 14px 20px;
   -webkit-box-align: center;
   -webkit-align-items: center;
   align-items: center;
@@ -2521,7 +2523,7 @@ button, input, textarea {
   display: -webkit-flex;
   display: flex;
   margin: 0 0 20px;
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: relative;
   padding-bottom: 44px
 }
@@ -2549,13 +2551,13 @@ button, input, textarea {
 }
 
 .van-steps__title {
-  font-size: 28px;
+  font-size: 35px;
   color: #323233;
   padding-top: 8px
 }
 
 .van-steps__desc {
-  font-size: 24px;
+  font-size: 35px;
   line-height: 1.5;
   color: #969799
 }
@@ -2564,7 +2566,7 @@ button, input, textarea {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;
-  font-size: 28px;
+  font-size: 35px;
   position: relative;
   color: #969799
 }
@@ -2603,24 +2605,24 @@ button, input, textarea {
 .van-step--horizontal .van-step__circle-container {
   position: absolute;
   top: 56px;
-  left: -16px;
+  left: -14px;
   padding: 0 16px;
   background-color: #fff;
   z-index: 1
 }
 
 .van-step--horizontal .van-step__title {
-  font-size: 24px;
+  font-size: 30px;
   -webkit-transform: translate3d(-50%, 0, 0);
   transform: translate3d(-50%, 0, 0);
   display: inline-block;
-  margin-left: 6px
+  margin-left: 15px
 }
 
 .van-step--horizontal .van-step__line {
   position: absolute;
   left: 0;
-  top: 60px;
+  top: 65px;
   width: 100%;
   height: 1Px;
   background-color: #ebedf0
@@ -2639,15 +2641,15 @@ button, input, textarea {
 }
 
 .van-step--horizontal.van-step--process .van-icon {
-  font-size: 24px;
+  font-size: 35px;
   color: #07c160;
   display: block
 }
 
 .van-step .van-step__circle {
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background-color: #969799
 }
@@ -2655,7 +2657,7 @@ button, input, textarea {
 .van-step--vertical {
   float: none;
   display: block;
-  font-size: 28px;
+  font-size: 35px;
   line-height: 36px;
   padding: 20px 20px 20px 0
 }
@@ -2763,7 +2765,7 @@ button, input, textarea {
 
 .van-tab--active {
   font-weight: 500;
-  color: #f82a59;
+  color: #F2180C;
 }
 
 .van-tab--disabled {
@@ -2834,13 +2836,13 @@ button, input, textarea {
   margin: 0 30px;
   border-radius: 4px;
   box-sizing: border-box;
-  border: 1Px solid #f44;
+  border: 1Px solid #F2180C;
   height: 60px
 }
 
 .van-tabs__nav--card .van-tab {
-  color: #f44;
-  border-right: 1Px solid #f44;
+  color: #F2180C;
+  border-right: 1Px solid #F2180C;
   line-height: 56px
 }
 
@@ -2850,7 +2852,7 @@ button, input, textarea {
 
 .van-tabs__nav--card .van-tab.van-tab--active {
   color: #fff;
-  background-color: #f44
+  background-color: #F2180C
 }
 
 .van-tabs__nav--card .van-tab--disabled {
@@ -2865,7 +2867,7 @@ button, input, textarea {
   height: 6px;
   position: absolute;
   border-radius: 6px;
-  background-color: #f82a59;
+  background-color: #F2180C;
 }
 
 .van-tabs__content--animated {
@@ -2949,7 +2951,7 @@ button, input, textarea {
 }
 
 .van-tabbar-item__icon {
-  font-size: 36px;
+  font-size: 40px;
   position: relative;
   margin-bottom: 10px
 }
@@ -2971,7 +2973,7 @@ button, input, textarea {
 }
 
 .van-tabbar-item__icon img {
-  height: 36px;
+  height: 40px;
   display: block
 }
 
@@ -2980,7 +2982,7 @@ button, input, textarea {
 }
 
 .van-tabbar-item .van-info {
-  margin-top: 4px
+  margin-top: 6px
 }
 /*xxx*/
 
@@ -3469,9 +3471,9 @@ button, input, textarea {
 }
 
 .van-radio__icon--checked .van-icon {
-  color: #f82a59;
-  border:1Px #f82a59 solid;
-  background-color: #fff
+  color: #F2180C;
+  border:1Px #F2180C solid;
+  background-color: #fff !important;
 }
 
 .van-radio__icon--disabled .van-icon {
@@ -3509,7 +3511,7 @@ button, input, textarea {
   border-radius: 1em;
   -webkit-transition: background-color .3s;
   transition: background-color .3s;
-  font-size: 30px !important;
+  font-size: 40px !important;
 }
 
 .van-switch__node {
@@ -3532,7 +3534,7 @@ button, input, textarea {
 }
 
 .van-switch--on {
-  background-color: #1989fa
+  background-color: #F2180C;
 }
 
 .van-switch--on .van-switch__node {
@@ -3568,10 +3570,12 @@ button, input, textarea {
 
 /*start*/
 .van-password-input {
-  margin: 0 30px;
+  margin: 0 30px 0;
   -webkit-user-select: none;
   user-select: none;
-  position: relative
+  position: relative;
+  padding-top: 150px;
+  box-sizing: border-box;
 }
 
 .van-password-input:focus {
@@ -3593,6 +3597,7 @@ button, input, textarea {
 }
 
 .van-password-input__security {
+  margin-top: 0px!important;
   width: 100%;
   height: 100px;
   display: -webkit-box;
@@ -3726,11 +3731,11 @@ button, input, textarea {
 /*end*/
 
 /*start*/
-.van-actionsheet__cancel:active, .van-actionsheet__item:active, .van-key--active {
+.van-action-sheet__cancel:active, .van-action-sheet__item:active, .van-key--active {
   background-color: #e8e8e8
 }
 
-.van-actionsheet {
+.van-action-sheet {
   position: fixed;
   /*left: 0;*/
   right: 0;
@@ -3742,11 +3747,11 @@ button, input, textarea {
   background-color: #f8f8f8
 }
 
-.van-actionsheet--withtitle, .van-actionsheet__item--disabled:active {
+.van-action-sheet--withtitle, .van-action-sheet__item--disabled:active {
   background-color: #fff
 }
 
-.van-actionsheet__cancel, .van-actionsheet__item {
+.van-action-sheet__cancel, .van-action-sheet__item {
   height: 100px;
   line-height: 100px;
   font-size: 32px;
@@ -3754,31 +3759,31 @@ button, input, textarea {
   background-color: #fff
 }
 
-.van-actionsheet__item--disabled {
+.van-action-sheet__item--disabled {
   color: #c8c9cc
 }
 
-.van-actionsheet__subname {
+.van-action-sheet__subname {
   font-size: 24px;
   color: #7d7e80;
   margin-left: 10px
 }
 
-.van-actionsheet__loading {
+.van-action-sheet__loading {
   display: inline-block
 }
 
-.van-actionsheet__cancel {
+.van-action-sheet__cancel {
   margin-top: 20px
 }
 
-.van-actionsheet__header {
+.van-action-sheet__header {
   font-size: 32px;
   line-height: 88px;
   text-align: center
 }
 
-.van-actionsheet__header .van-icon-close {
+.van-action-sheet__header .van-icon-close {
   top: 0;
   right: 0;
   padding: 0 30px;
@@ -3863,7 +3868,7 @@ button, input, textarea {
 }
 
 .van-dialog__confirm, .van-dialog__confirm:active {
-  color: #f82a59
+  color: #F2180C
 }
 
 .van-dialog-bounce-enter {
@@ -3902,7 +3907,7 @@ button, input, textarea {
 }
 
 .van-picker__cancel, .van-picker__confirm {
-  color: #f82a59;
+  color: #F2180C;
   padding: 0 30px;
   font-size: 28px
 }
@@ -4020,7 +4025,7 @@ button, input, textarea {
 
 .van-notify {
   text-align: center;
-  padding: 12px 30px;
+  padding: 24px 30px;
   top: 0;
   width: 100%;
   box-sizing: border-box
@@ -4787,6 +4792,7 @@ button, input, textarea {
   -webkit-box-align: center;
   -webkit-align-items: center;
   align-items: center;
+  justify-content: space-between;
   background-color: #fff
 }
 
@@ -4805,7 +4811,7 @@ button, input, textarea {
 }
 
 .van-submit-bar__price {
-  color: #f82a59;
+  color: #F2180C;
   font-size: 30px;
 }
 

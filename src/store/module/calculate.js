@@ -1,45 +1,53 @@
 import Vue from 'vue'
-import * as common from '../../common'
-import * as config from '../../config'
-import api from '../../api/request'
+import * as common from '../../utils/common'
+import * as config from '../../utils/config'
+import httpCli from '../../api/request'
+
 export default {
   state: {
-    calculateList:{},
-    payOrder:{},
-    deliverCalculateList:{},
+    calculateList: {},
+    orderInfo:{},
+    payOrder: {},
+    chooiseGiftGoodsId: '',
+    chooiseGiftGoodsTitle: ''
   },
-  getters: {
-
-  },
+  getters: {},
   mutations: {
-    setPayCalculate(state,data){
+    setPayCalculate (state, data) {
       state.calculateList = data
+      if (data.giftGoodsList.length) {
+        state.chooiseGiftGoodsId = data.giftGoodsList[0].goodsId
+        state.chooiseGiftGoodsTitle = data.giftGoodsList[0].goodsTitle
+      }else {
+        state.chooiseGiftGoodsId = ''
+        state.chooiseGiftGoodsTitle = ''
+      }
     },
-    setPayOrder(state,data){
-      state.payOrder = data
+    setChooiseGift (state, data) {
+      for (let i = 0; i < state.calculateList.giftGoodsList.length; i++) {
+        let item = state.calculateList.giftGoodsList[i]
+        if (item.goodsId === data.goodsId) {
+          state.chooiseGiftGoodsId = data.goodsId
+          state.chooiseGiftGoodsTitle = item.goodsTitle
+        }
+      }
     },
-    setDeliveryPayCalculate(state,data){
-      state.deliverCalculateList = data
-    },
-    setAmountPayOrder(state,data){
-      state.payOrder = data
-    },
-    setOrderInfoByOrderId(state,data){
+    setOrderInfoByOrderId (state, data) {
       state.payOrder = data
     }
   },
   actions: {
-    getPayCalculate({commit},data){
-      return new Promise((resolve,reject) =>{
-        api({
-          url:config.URL_PAY_CALCULATE,
-          data:data
+    getPayCalculate ({commit}, data) {
+      return new Promise((resolve, reject) => {
+        httpCli({
+          url: config.URL_PAY_CALCULATE,
+          data: data
         })
           .then(res => {
-            if (res.errorCode == 100){
-              commit('setPayCalculate',res.data)
+            if (res.errorCode == 100) {
+              commit('setPayCalculate', res.data)
               resolve(res.data)
-            }else {
+            } else {
               reject(res)
             }
           })
@@ -48,94 +56,58 @@ export default {
           })
       })
     },
-    getPayOrder({commit},data){
-      return new Promise((resolve,reject) => {
-        api({
-          url:config.URL_PAY_ORDER,
-          data:data
+    getOrderInfoByGoodsList ({commit,state},data) {
+      return new Promise((resolve, reject) => {
+        let goodsList = []
+        state.calculateList.goodsList.map((item, index) => {
+          let obj = {}
+          obj.goodsId = item.goodsId
+          obj.goodsNum = item.goodsNum
+          obj.goodsEt = item.goodsEt
+          goodsList.push(obj)
         })
-          .then(res => {
-            if (res.errorCode == 100){
-              commit('setPayOrder',res.data)
-              resolve(res.data)
-            }else {
-              reject(res)
-            }
-          })
-          .catch(err => {
-            reject(err)
-          })
-      })
-    },
-    getDeliveryPayCalculate({commit},data){
-      return new Promise((resolve,reject) => {
-        api({
-          url:config.URL_DELIVERY_CALULATE,
-          data:data
-        })
-          .then(res => {
-            if (res.errorCode == 100){
-              commit('setDeliveryPayCalculate',res.data)
-              resolve(res.data)
-            }else {
-              reject(res)
-            }
-          })
-          .catch(err => {
-            reject(err)
-          })
-      })
-    },
-    getDeliverPayOrder({commit},data){
-      return new Promise((resolve,reject) => {
-        api({
-          url:config.URL_DELIVERY_SUBMIT,
-          data:data
-        })
-          .then(res => {
-            if (res.errorCode == 100){
-              resolve(res)
-            }else {
-              reject(res)
-            }
-          })
-          .catch(err => {
-            reject(err)
-          })
-      })
-    },
-    getAmountPayOrder({commit},data){
-      return new Promise((resolve,reject) => {
-        api({
-          url:config.URL_WALLER_RECHARGE_ONLINE_ORDER,
-          data:data
-        })
-          .then(res => {
-            if (res.errorCode == 100){
-              commit('setAmountPayOrder',res.data)
-              resolve(res.data)
-            }
-          })
-          .catch(err => {
-            reject(err)
-          })
-      })
-    },
-    getOrderInfoByOrderId({commit},data){
-      return new Promise((resolve,reject) => {
-        console.log(data)
         let apply = {
-          orderNo:data
+          goodsList: JSON.stringify(goodsList),
+          giftGoodsId: state.chooiseGiftGoodsId,
         }
-        api({
-          url:config.URL_PAY_ORDER_INFO,
-          data:apply
+        if (state.calculateList.addressRequired == '1') {
+          if (data.addressId) {
+            apply['addressId'] = data.addressId
+          } else if (state.calculateList.address && state.calculateList.address.addressId) {
+            apply['addressId'] = state.calculateList.address.addressId
+          }
+        }
+        httpCli({
+          url: config.URL_PAY_ORDER,
+          data: apply
         })
           .then(res => {
-            if (res.errorCode == 100){
-              commit('setOrderInfoByOrderId',res.data)
+            if (res.errorCode == 100) {
+              state.orderInfo = res.data
               resolve(res.data)
             }else {
+              reject(res)
+            }
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    getOrderInfoByOrderId ({commit}, data) {
+      return new Promise((resolve, reject) => {
+        let apply = {
+          orderNo: data
+        }
+        httpCli({
+          url: config.URL_PAY_ORDER_INFO,
+          data: apply
+        })
+          .then(res => {
+            if (res.errorCode == 100) {
+              commit('setOrderInfoByOrderId', res.data)
+              resolve(res.data)
+            } else {
               reject(res)
             }
           })

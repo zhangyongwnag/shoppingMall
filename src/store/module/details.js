@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import * as common from '../../common'
-import * as config from '../../config'
-import api from '../../api/request'
+import * as common from '../../utils/common'
+import * as config from '../../utils/config'
+import httpCli from '../../api/request'
 export default {
   state: {
     orderDetails:{}
@@ -18,9 +18,9 @@ export default {
     getOrderDetails({commit},data){
       return new Promise((resolve,reject) => {
         let apply = {
-          orderId:data
+          orderNo:data
         }
-        api({
+        httpCli({
           url:config.URL_ORDER_DETAIL,
           data:apply
         })
@@ -42,7 +42,7 @@ export default {
         let apply = {
           orderId:data
         }
-        api({
+        httpCli({
           url:config.URL_DELIVERY_DETAIL,
           data:apply
         })
@@ -64,7 +64,7 @@ export default {
         let apply = {
           orderId:data
         }
-        api({
+        httpCli({
           url:config.URL_SUB_ORDER_DETAIL,
           data:apply
         })

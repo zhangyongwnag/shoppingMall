@@ -4,19 +4,17 @@
   </div>
 </template>
 <script>
-  import { mapState } from 'vuex'
   export default {
     data() {
       return {
 
       }
     },
-    methods: {
-
+    created(){
+      this.$router.replace({path:'/Main/Home'})
     }
   }
 </script>
 <style scoped>
 
 </style>
-

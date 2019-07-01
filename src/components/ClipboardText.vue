@@ -1,7 +1,7 @@
 <template>
   <span>
     <button class="copyButton" :data-clipboard-text="text" @click="copy">
-      <img src="../assets/img/04/fz.png" alt="">
+      <img src="../assets/img/ctrlC.png" alt="">
     </button>
   </span>
 </template>

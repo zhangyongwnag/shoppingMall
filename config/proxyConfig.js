@@ -1,12 +1,11 @@
- module.exports = {
-  proxyList:{
-    '/api':{
+module.exports = {
+  '/api':{
+    proxyList:{
       target:'',
       changeOrigin:true,
-      pathRewrite:{
+      pathReWrite:{
         '^/api':''
       }
     }
   }
 }
-

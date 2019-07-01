@@ -1,39 +1,38 @@
 import Vue from 'vue'
-import * as common from '../../common'
-import * as config from '../../config'
-import api from '../../api/request'
+import * as common from '../../utils/common'
+import * as config from '../../utils/config'
+import httpCli from '../../api/request'
+import {Toast} from 'vant'
+
 export default {
   state: {
-    collectList:{}
+    collectionList:[]
   },
   getters: {
 
   },
   mutations: {
-    setCollectList(state,data){
-      state.collectList = data
+    setCollectionList(state,data){
+      state.collectionList = state.collectionList.concat(data)
     },
     setCancelGood(state,data){
-      if (state.collectList.gridModel){
-        state.collectList.gridModel = state.collectList.gridModel.filter(item => item.goodsId != data)
-      }
+      state.collectionList = state.collectionList.filter(item => data != item.goodsId)
+    },
+    clearCollecionList(state){
+      state.collectionList = []
     }
   },
   actions: {
-    getCollectList({commit}, data) {
+    getCollectionList({commit},data){
       return new Promise((resolve,reject) => {
-        let apply = {
-          currentPage: '1',
-          pageRow: '10000'
-        }
-        api({
-          url: config.URL_COLLECT_LIST,
-          data: apply
+        httpCli({
+          url:config.URL_COLLECT_LIST,
+          data:data
         })
           .then(res => {
-            if (res.errorCode == 100) {
-              commit('setCollectList', res.data.goodList)
-              resolve(res.data)
+            if (res.errorCode == 100){
+              commit('setCollectionList',res.data.goodList.gridModel)
+              resolve(res.data.goodList)
             }else {
               reject(res)
             }
@@ -43,31 +42,18 @@ export default {
           })
       })
     },
-    getCancelGood({commit}, data) {
-      let apply = {
-        goodsId: data
-      }
-      api({
-        url: config.URL_COLLECT_CENCEL,
-        data: apply
-      })
-        .then(res => {
-          if (res.errorCode == 100) {
-            commit('setCancelGood', data)
-          }
-        })
-    },
-    getAddCollectGood({commit}, data) {
+    getAddGood({commit},data){
       return new Promise((resolve,reject) => {
         let apply = {
-          goodsIds: data
+          goodsIds:data
         }
-        api({
-          url: config.URL_COLLECT_ADD,
-          data: apply
+        httpCli({
+          url:config.URL_COLLECT_ADD,
+          data:apply
         })
           .then(res => {
             if (res.errorCode == 100) {
+              Toast.success('收藏成功')
               resolve(res)
             }else {
               reject(res)
@@ -77,6 +63,29 @@ export default {
             reject(err)
           })
       })
-    }
-  },
+    },
+    getCancelGood({commit},data){
+      return new Promise((resolve,reject) => {
+        let apply = {
+          goodsId:data
+        }
+        httpCli({
+          url:config.URL_COLLECT_CENCEL,
+          data:apply
+        })
+          .then(res => {
+            if (res.errorCode == 100){
+              commit('setCancelGood',data)
+              Toast.success('取消收藏')
+              resolve(res)
+            }else {
+              reject(res)
+            }
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+  }
 }

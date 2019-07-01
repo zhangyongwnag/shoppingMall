@@ -1,10 +1,11 @@
 import Vue from 'vue'
-import * as common from '../../common'
-import * as config from '../../config'
+import * as common from '../../utils/common'
+import * as config from '../../utils/config'
 import api from '../../api/request'
 export default {
   state: {
-    defaultBankList:{}
+    defaultBankList:{},
+    address:{}
   },
   getters: {
 
@@ -12,11 +13,17 @@ export default {
   mutations: {
     setDefaultBank(state,data){
       state.defaultBankList = data
+    },
+    setOrderAddress(state,data){
+      state.address = data
     }
   },
   actions: {
     getDefaultBank({commit},data){
       commit('setDefaultBank',data)
-    }
+    },
+    getOrderAddress({commit},data){
+      commit('setOrderAddress',data)
+    },
   }
 }

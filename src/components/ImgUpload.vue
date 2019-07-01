@@ -6,12 +6,12 @@
           <img :src="item" alt="" @click="sheetImg(index)">
         </div>
         <van-uploader :after-read="onRead" accept="image/*" :multiple="multiple ? multiple : false" class="imgWrap">
-          <img src="../assets/img/03/uploadPZ.png" alt="" class="imgUpload">
+          <img src="../assets/img/uploadPZ.png" alt="" class="imgUpload">
         </van-uploader>
       </div>
     </div>
 
-    <van-actionsheet
+    <van-action-sheet
       v-model="show"
       :actions="actions"
       cancel-text="取消"
@@ -25,15 +25,14 @@
    * @date 2019/2/21
    * @author zyw
    * @description img upload ：base64 formData
-   * @prop mode：默认是base64 传FormData 代表FormData格式 || lrz 压缩
+   * @prop mode：默认是base64 传FormData 代表FormData格式 || lrz 压缩 === multiple：是否多选，默认单选
    */
   import { ImagePreview } from 'vant';
   import { mapState } from 'vuex'
-  import * as config from '../config'
-  import * as common from '../common'
+  import * as config from '../utils/config'
+  import * as common from '../utils/common'
   import axios from 'axios'
   export default {
-//    props:{'mode','multiple'},
     props:{
       mode:{
         type:String,
@@ -42,6 +41,10 @@
       multiple:{
         type:Boolean,
         default:false
+      },
+      maxLength:{
+        type:String,
+        default:''
       }
     },
     data () {
@@ -71,6 +74,26 @@
     },
     methods:{
       onRead(file){
+        if (this.multiple){
+          if (file.length > this.maxLength){
+            common.toast(`最多选择${this.maxLength}张照片`)
+            return
+          }
+          if (this.mode){
+            this.imgFormData.length === this.maxLength ? common.toast(`最多上传${this.maxLength}张照片`) : this.lrzImages(file)
+          }else {
+            this.imgsBase64.length === this.maxLength ? common.toast(`最多上传${this.maxLength}张照片`) : this.lrzImages(file)
+          }
+        }else {
+          if (this.mode){
+            this.imgFormData.length === this.maxLength ? common.toast(`最多上传${this.maxLength}张照片`) : this.lrzImages(file)
+          }else {
+            this.imgsBase64.length === this.maxLength ? common.toast(`最多上传${this.maxLength}张照片`) : this.lrzImages(file)
+          }
+        }
+
+      },
+      lrzImages(file){
         this.$toast.loading({
           mask: true,
           message: '上传中...',
@@ -140,7 +163,8 @@
             }
             this.httpCli({
               url:config.URL_FILE_BASE64_UPLOAD,
-              data:data
+              data:data,
+              timeout:'',
             })
               .then(res => {
                 this.$toast.clear()
@@ -211,5 +235,6 @@
   }
   .imgPreview img {
     max-height: 150px;
+    max-width: 150px;
   }
 </style>

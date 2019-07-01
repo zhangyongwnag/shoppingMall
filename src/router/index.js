@@ -1,349 +1,145 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 const Index = () => import("@/pages/Index.vue")
-const Main = () => import("@/pages/Main.vue")
-const Home = () => import("@/pages/Home.vue")
-const Classify = () => import("@/pages/Classify.vue")
-const ClassifyShopping = () => import("@/pages/ClassifyShopping.vue")
-const ShoppingCart = () => import("@/pages/ShoppingCart.vue")
-const ConfirmOrders = () => import("@/pages/ConfirmOrders.vue")
-const Personal = () => import("@/pages/Personal.vue")
-const Login = () => import("@/pages/Login.vue")
-const LoginQuick = () => import("@/pages/LoginQuick.vue")
-const SetPaypwd = () => import("../pages/SetPaypwd.vue")
-const Setinfo = () => import("../pages/Setinfo.vue")
-const Userinfo = () => import("../pages/Userinfo.vue")
-const FixUserName = () => import("../pages/FixUserName.vue")
-const AssistRegister = () => import("../pages/AssistRegister.vue")
-const RegisterByScanCode = () => import("../pages/RegisterByScanCode.vue")
-const SLA = () => import("../pages/SLA.vue")
-const RevisePassword = () => import("../pages/RevisePassword.vue")
-const RrvisePaypwd = () => import("../pages/RrvisePaypwd.vue")
-const RevisePhone = () => import("../pages/RevisePhone.vue")
-const ForgotPassword = () => import("../pages/ForgotPassword.vue")
-const VerifyPaypwd = () => import("../pages/VerifyPaypwd.vue")
-const SearchShop = () => import("../pages/SearchShop.vue")
-const GoodDetails = () => import("../pages/GoodDetails.vue")
-const MarketPackgeList = () => import("../pages/MarketPackgeList.vue")
-const PlanDetails = () => import("../pages/PlanDetails.vue")
-const NewPeopleDetails = () => import("../pages/NewPeopleDetails.vue")
-const ChooiseGoods = () => import("../pages/ChooiseGoods.vue")
-const PayMoney = () => import("../pages/PayMoney.vue")
-const OffinePayMoney = () => import("../pages/OffinePayMoney.vue")
-const PayMoneyRecords = () => import("../pages/PayMoneyRecords.vue")
-const WithdrawMoney = () => import("../pages/WithdrawMoney.vue")
-const WithdrawMoneyRecords = () => import("../pages/WithdrawMoneyRecords.vue")
-const AddressList = () => import("../pages/AddressList.vue")
-const AddressListAction = () => import("../pages/AddressListAction.vue")
-const ServiceInfo = () => import("../pages/ServiceInfo.vue")
-const MyPoster = () => import("../pages/MyPoster.vue")
-const DirectUsers = () => import("../pages/DirectUsers.vue")
-const MyCollection = () => import("../pages/MyCollection.vue")
-const BankCardManage = () => import("../pages/BankCardManage.vue")
-const BankCardAddCardId = () => import("../pages/BankCardAddCardId.vue")
-const BankCardAdd = () => import("../pages/BankCardAdd.vue")
-const SupportList = () => import("../pages/SupportList.vue")
-const SupportListDetails = () => import("../pages/SupportListDetails.vue")
-const PriceDetails = () => import("../pages/PriceDetails.vue")
-const CouponList = () => import("../pages/CouponList.vue")
-const CommentList = () => import("../pages/CommentList.vue")
-const UpgradeManage = () => import("../pages/UpgradeManage.vue")
-const MyStorage = () => import("../pages/MyStorage.vue")
-const ToRestoking = () => import("../pages/ToRestoking.vue")
-const DeliveryOrders = () => import("../pages/DeliveryOrders.vue")
-const AllVipOrders = () => import("../pages/AllVipOrders.vue")
-const AllOrders = () => import("../pages/AllOrders.vue")
-const AftersaleList = () => import("../pages/AftersaleList.vue")
-const JuniorOrders = () => import("../pages/JuniorOrders.vue")
-const LogisticsList = () => import("../pages/LogisticsList.vue")
-const LogisticsInfo = () => import("../pages/LogisticsInfo.vue")
-const PaymentMethods = () => import("../pages/PaymentMethods.vue")
-const PaymentMethodOfBank = () => import("../pages/PaymentMethodOfBank.vue")
-const PaySuccess = () => import("../pages/PaySuccess.vue")
-const OrderDetails = () => import("../pages/OrderDetails.vue")
+const Login = () => import("@/pages/user/Login.vue")
+const LoginQuick = () => import("@/pages/user/LoginQuick.vue")
+const ForgotPassword = () => import("@/pages/user/ForgotPassword.vue")
+const SLA = () => import("@/pages/user/SLA.vue")
+const FAQ = () => import("@/pages/user/FAQ.vue")
+const TourGuideLogin = () => import("@/pages/user/TourGuideLogin.vue")
+const TourGuideMange = () => import("@/pages/user/TourGuideMange.vue")
+const TourGuideVerify = () => import("@/pages/user/TourGuideVerify.vue")
+const AddressList = () => import("@/pages/user/AddressList.vue")
+const AddressListAction = () => import("@/pages/user/AddressListAction.vue")
+const Userinfo = () => import("@/pages/user/Userinfo.vue")
+const FixUserName = () => import("@/pages/user/FixUserName.vue")
+const SetPaypwd = () => import("@/pages/user/SetPaypwd.vue")
+const MyQRcode = () => import("@/pages/user/MyQRcode.vue")
+const MyInviteQRcode = () => import("@/pages/user/MyInviteQRcode.vue")
+const setting = () => import("@/pages/user/setting.vue")
+const RevisePassword = () => import("@/pages/user/RevisePassword.vue")
+const InviteVipUser = () => import("@/pages/invites/InviteVipUser.vue")
+const BeInvitedHighVipUser = () => import("@/pages/invites/BeInvitedHighVipUser.vue")
+const MyInviteUser = () => import("@/pages/invites/MyInviteUser.vue")
+const BecomeHighVip = () => import("@/pages/invites/BecomeHighVip.vue")
+const InviteVipMiddlePage = () => import("@/pages/invites/InviteVipMiddlePage.vue")
+const InviteHighVipMiddlePage = () => import("@/pages/invites/InviteHighVipMiddlePage.vue")
+const InviteHighVipRegisterMiddlePage = () => import("@/pages/invites/InviteHighVipRegisterMiddlePage.vue")
+const Main = () => import("@/pages/home/Main.vue")
+const Home = () => import("@/pages/home/Home.vue")
+const Classify = () => import("@/pages/home/Classify.vue")
+const ShoppingCart = () => import("@/pages/home/ShoppingCart.vue")
+const PersonCenter = () => import("@/pages/home/PersonCenter.vue")
+const BankCardManage = () => import("@/pages/finance/BankCardManage.vue")
+const BankCardAddCardId = () => import("@/pages/finance/BankCardAddCardId.vue")
+const BankCardAdd = () => import("@/pages/finance/BankCardAdd.vue")
+const OrderManage = () => import("@/pages/order/OrderManage.vue")
+const OrderDetails = () => import("@/pages/order/OrderDetails.vue")
+const DeliveryOrderMange = () => import("@/pages/order/DeliveryOrderMange.vue")
+const DeliveryLumpMange = () => import("@/pages/order/DeliveryLumpMange.vue")
+const DeliveryOrderDetail = () => import("@/pages/order/DeliveryOrderDetail.vue")
+const AppendTours = () => import("@/pages/order/AppendTours.vue")
+const AfterSaleList = () => import("@/pages/order/AfterSaleList.vue")
+const PaymentMethods = () => import("@/pages/order/PaymentMethods.vue")
+const PaySuccess = () => import("@/pages/order/PaySuccess.vue")
+const OrderPaySuccess = () => import("@/pages/order/OrderPaySuccess.vue")
+const ConfirmOrders = () => import("@/pages/order/ConfirmOrders.vue")
+const StartCityChooise = () => import("@/pages/order/StartCityChooise.vue")
+const ToProvinceChooise = () => import("@/pages/order/ToProvinceChooise.vue")
+const MyRecomment = () => import("@/pages/good/MyRecomment.vue")
+const MyCollation = () => import("@/pages/good/MyCollation.vue")
+const GoodDetails = () => import("@/pages/good/GoodDetails.vue")
+const ActiveGoodDetails = () => import("@/pages/good/ActiveGoodDetails.vue")
+const MyBalance = () => import("@/pages/finance/MyBalance.vue")
+const WithdrawMoney = () => import("@/pages/finance/WithdrawMoney.vue")
+const NotAccountBalance = () => import("@/pages/finance/NotAccountBalance.vue")
+const MyCoupon = () => import("@/pages/finance/MyCoupon.vue")
+const CaseGift = () => import("@/pages/finance/CaseGift.vue")
+const SearchShop = () => import("@/pages/shop/SearchShop.vue")
+const ClassifyAFP = () => import("@/pages/shop/ClassifyAFP.vue")
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path:'/',
+      path: '/',
       redirect: {
-        name:'Home'
+        name:'Index'
       }
     },
     {
       path:'/Index',
       name:'Index',
       component:Index,
-      meta: {
-        title:'首页'
-      }
-    },
-    {
-      path:'/Main',
-      name:'Main',
-      component:Main,
-      meta: {
-        title:'主页'
-      },
-      children: [
-        {
-          path:'/Main/Home',
-          name:'Home',
-          component:Home,
-          meta: {
-            title:'芭莎贝雅商城',
-            active:0
-          }
-        },
-        {
-          path:'/Main/Classify',
-          name:'Classify',
-          component:Classify,
-          meta: {
-            title:'分类',
-            active:1
-          }
-        },
-        {
-          path:'/Main/ShoppingCart',
-          name:'ShoppingCart',
-          component:ShoppingCart,
-          meta: {
-            title:'购物车',
-            active:2
-          }
-        },
-        {
-          path:'/Main/Personal',
-          name:'Personal',
-          component:Personal,
-          meta: {
-            title:'我的',
-            active:3,
-            keepAlive:true
-          }
-        },
-      ]
-    },
-    {
-      path:'/ClassifyShopping',
-      name:'ClassifyShopping',
-      component:ClassifyShopping,
-      meta: {
-        title:'订单',
-        keepAlive:true
-      }
-    },
-    {
-      path:'/ConfirmOrders',
-      name:'ConfirmOrders',
-      component:ConfirmOrders,
-      meta: {
-        title:'订单结算',
+      meta:{
+        title:'蝶库·旅游特惠精选'
       }
     },
     {
       path:'/Login',
       name:'Login',
       component:Login,
-      meta: {
-        title:'密码登录',
+      meta:{
+        title:'密码登录'
       }
     },
     {
       path:'/LoginQuick',
       name:'LoginQuick',
       component:LoginQuick,
-      meta: {
-        title:'快速登录',
+      meta:{
+        title:'快速登录'
+      }
+    },
+    {
+      path:'/ForgotPassword',
+      name:'ForgotPassword',
+      component:ForgotPassword,
+      meta:{
+        title:'忘记密码'
       }
     },
     {
       path:'/SLA',
       name:'SLA',
       component:SLA,
-      meta: {
-        title:'注册协议',
+      meta:{
+        title:'蝶库服务协议'
       }
     },
     {
-      path:"/SetPaypwd",
-      name:'SetPaypwd',
-      component:SetPaypwd,
+      path:'/FAQ',
+      name:'FAQ',
+      component:FAQ,
       meta:{
-        title:'设置支付密码'
-      }
-    },
-    {
-      path:"/AssistRegister",
-      name:'AssistRegister',
-      component:AssistRegister,
-      meta:{
-        title:'注册会员'
-      }
-    },
-    {
-      path:"/RegisterByScanCode",
-      name:'RegisterByScanCode',
-      component:RegisterByScanCode,
-      meta:{
-        title:'扫码注册经销商'
-      }
-    },
-    {
-      path:"/Setinfo",
-      name:'Setinfo',
-      component:Setinfo,
-      meta:{
-        title:'设置中心'
-      }
-    },
-    {
-      path:"/RevisePassword",
-      name:'RevisePassword',
-      component:RevisePassword,
-      meta:{
-        title:'管理登录密码'
-      }
-    },
-    {
-      path:"/ForgotPassword",
-      name:'ForgotPassword',
-      component:ForgotPassword,
-      meta:{
-        title:'找回密码'
-      }
-    },
-    {
-      path:"/RrvisePaypwd",
-      name:'RrvisePaypwd',
-      component:RrvisePaypwd,
-      meta:{
-        title:'修改支付密码'
-      }
-    },
-    {
-      path:"/VerifyPaypwd",
-      name:'VerifyPaypwd',
-      component:VerifyPaypwd,
-      meta:{
-        title:'验证支付密码'
-      }
-    },
-    {
-      path:"/RevisePhone",
-      name:'RevisePhone',
-      component:RevisePhone,
-      meta:{
-        title:'修改绑定手机号'
-      }
-    },
-    {
-      path:"/Userinfo",
-      name:'Userinfo',
-      component:Userinfo,
-      meta:{
-        title:'个人信息'
-      }
-    },
-    {
-      path:"/FixUserName",
-      name:'FixUserName',
-      component:FixUserName,
-      meta:{
-        title:'修改昵称'
-      }
-    },
-    {
-      path:"/SearchShop",
-      name:'SearchShop',
-      component:SearchShop,
-      meta:{
-        title:'搜索商品',
+        title:'常见问题',
         keepAlive:true
       }
     },
     {
-      path:"/GoodDetails",
-      name:'GoodDetails',
-      component:GoodDetails,
+      path:'/TourGuideLogin',
+      name:'TourGuideLogin',
+      component:TourGuideLogin,
       meta:{
-        title:'商品详情',
-        shareStatus:true
+        title:'导游注册验证',
+        keepAlive:true
       }
     },
     {
-      path:"/MarketPackgeList",
-      name:'MarketPackgeList',
-      component:MarketPackgeList,
+      path:'/TourGuideMange',
+      name:'TourGuideMange',
+      component:TourGuideMange,
       meta:{
-        title:'市场保障计划'
+        title:'导游身份认证'
       }
     },
     {
-      path:"/PlanDetails",
-      name:'PlanDetails',
-      component:PlanDetails,
+      path:'/TourGuideVerify',
+      name:'TourGuideVerify',
+      component:TourGuideVerify,
       meta:{
-        title:'保障计划详情'
-      }
-    },
-    {
-      path:"/NewPeopleDetails",
-      name:'NewPeopleDetails',
-      component:NewPeopleDetails,
-      meta:{
-        title:'新人有礼详情'
-      }
-    },
-    {
-      path:"/ChooiseGoods",
-      name:'ChooiseGoods',
-      component:ChooiseGoods,
-      meta:{
-        title:'挑选商品'
-      }
-    },
-    {
-      path:"/PayMoney",
-      name:'PayMoney',
-      component:PayMoney,
-      meta:{
-        title:'充值'
-      }
-    },
-    {
-      path:"/OffinePayMoney",
-      name:'OffinePayMoney',
-      component:OffinePayMoney,
-      meta:{
-        title:'线下充值'
-      }
-    },
-    {
-      path:"/PayMoneyRecords",
-      name:'PayMoneyRecords',
-      component:PayMoneyRecords,
-      meta:{
-        title:'充值记录'
-      }
-    },
-    {
-      path:"/WithdrawMoney",
-      name:'WithdrawMoney',
-      component:WithdrawMoney,
-      meta:{
-        title:'提现'
-      }
-    },
-    {
-      path:"/WithdrawMoneyRecords",
-      name:'WithdrawMoneyRecords',
-      component:WithdrawMoneyRecords,
-      meta:{
-        title:'提现记录'
+        title:'导游身份认证'
       }
     },
     {
@@ -363,45 +159,201 @@ export default new Router({
       }
     },
     {
-      path:"/ServiceInfo",
-      name:'ServiceInfo',
-      component:ServiceInfo,
+      path:'/Userinfo',
+      name:'Userinfo',
+      component:Userinfo,
       meta:{
-        title:'服务消息'
+        title:'个人信息',
       }
     },
     {
-      path:"/MyPoster",
-      name:'MyPoster',
-      component:MyPoster,
+      path:'/FixUserName',
+      name:'FixUserName',
+      component:FixUserName,
       meta:{
-        title:'我的海报',
-        shareStatus:true
+        title:'修改昵称'
       }
     },
     {
-      path:"/DirectUsers",
-      name:'DirectUsers',
-      component:DirectUsers,
+      path:'/SetPaypwd',
+      name:'SetPaypwd',
+      component:SetPaypwd,
       meta:{
-        title:'直推用户'
+        title:'修改支付密码'
       }
     },
     {
-      path:"/MyCollection",
-      name:'MyCollection',
-      component:MyCollection,
+      path:'/MyQRcode',
+      name:'MyQRcode',
+      component:MyQRcode,
       meta:{
-        title:'我的收藏'
+        title:'专属二维码',
+        keepAlive:true
       }
     },
     {
-      path:"/BankCardManage",
+      path:'/MyInviteQRcode',
+      name:'MyInviteQRcode',
+      component:MyInviteQRcode,
+      meta:{
+        title:'我的二维码',
+        keepAlive:true
+      }
+    },
+    {
+      path:'/setting',
+      name:'setting',
+      component:setting,
+      meta:{
+        title:'设置中心'
+      }
+    },
+    {
+      path:'/RevisePassword',
+      name:'RevisePassword',
+      component:RevisePassword,
+      meta:{
+        title:'设置登录密码'
+      }
+    },
+    {
+      path:'/InviteVipUser',
+      name:'InviteVipUser',
+      component:InviteVipUser,
+      meta:{
+        title:'邀请VIP好友'
+      }
+    },
+    {
+      path:'/BeInvitedHighVipUser',
+      name:'BeInvitedHighVipUser',
+      component:BeInvitedHighVipUser,
+      meta:{
+        title:'填写注册信息',
+        keepAlive:true
+      }
+    },
+    {
+      path:'/MyInviteUser',
+      name:'MyInviteUser',
+      component:MyInviteUser,
+      meta:{
+        title:'我的邀请'
+      }
+    },
+    {
+      path:'/BecomeHighVip',
+      name:'BecomeHighVip',
+      component:BecomeHighVip,
+      meta:{
+        title:'成为钻石会员',
+        toTopHidden:true,
+        keepAlive:true
+      }
+    },
+    {
+      path:'/InviteVipMiddlePage',
+      name:'InviteVipMiddlePage',
+      component:InviteVipMiddlePage,
+      meta:{
+        title:'邀请好友成为VIP会员',
+        keepAlive:true
+      }
+    },
+    {
+      path:'/InviteHighVipMiddlePage',
+      name:'InviteHighVipMiddlePage',
+      component:InviteHighVipMiddlePage,
+      meta:{
+        title:'邀请好友成为钻石会员',
+        toTopHidden:true,
+        keepAlive:true
+      }
+    },
+    {
+      path:'/InviteHighVipRegisterMiddlePage',
+      name:'InviteHighVipRegisterMiddlePage',
+      component:InviteHighVipRegisterMiddlePage,
+      meta:{
+        title:'成为钻石会员',
+        toTopHidden:true
+      }
+    },
+    {
+      path:'/Main',
+      name:'Main',
+      component:Main,
+      meta:{
+        title:'主页'
+      },
+      redirect:{
+        name:'Home'
+      },
+      children:[
+        {
+          path:'/Main/Home',
+          name:'Home',
+          component:Home,
+          meta:{
+            active:0,
+            title:'蝶库·旅游特惠精选'
+          },
+        },
+        {
+          path:'/Main/Classify',
+          name:'Classify',
+          component:Classify,
+          meta:{
+            active:1,
+            title:'分类',
+          },
+        },
+        {
+          path:'/Main/PersonCenter',
+          name:'PersonCenter',
+          component:PersonCenter,
+          meta:{
+            active:3,
+            title:'我的',
+            toTopHidden:true
+          },
+        },
+      ]
+    },
+    {
+      path:'/ShoppingCart',
+      name:'ShoppingCart',
+      component:ShoppingCart,
+      meta:{
+        active:2,
+        title:'购物车'
+      },
+    },
+    {
+      path:'/SearchShop',
+      name:'SearchShop',
+      component:SearchShop,
+      meta:{
+        title:'搜索商品',
+        keepAlive:true
+      },
+    },
+    {
+      path:'/ClassifyAFP',
+      name:'ClassifyAFP',
+      component:ClassifyAFP,
+      meta:{
+        title:'商品分类',
+        keepAlive:false
+      },
+    },
+    {
+      path:'/BankCardManage',
       name:'BankCardManage',
       component:BankCardManage,
       meta:{
         title:'银行卡管理'
-      }
+      },
     },
     {
       path:"/BankCardAddCardId",
@@ -421,123 +373,86 @@ export default new Router({
       }
     },
     {
-      path:"/SupportList",
-      name:'SupportList',
-      component:SupportList,
+      path:"/OrderManage",
+      name:'OrderManage',
+      component:OrderManage,
       meta:{
-        title:'扶持金列表'
+        title:'订单中心'
       }
     },
     {
-      path:"/SupportListDetails",
-      name:'SupportListDetails',
-      component:SupportListDetails,
+      path:"/OrderDetails",
+      name:'OrderDetails',
+      component:OrderDetails,
       meta:{
-        title:'扶持金明细'
+        title:'订单详情'
       }
     },
     {
-      path:"/PriceDetails",
-      name:'PriceDetails',
-      component:PriceDetails,
+      path:"/DeliveryOrderMange",
+      name:'DeliveryOrderMange',
+      component:DeliveryOrderMange,
       meta:{
-        title:'奖金明细'
+        title:'行程管理'
       }
     },
     {
-      path:"/CouponList",
-      name:'CouponList',
-      component:CouponList,
+      path:"/DeliveryLumpMange",
+      name:'DeliveryLumpMange',
+      component:DeliveryLumpMange,
       meta:{
-        title:'我的优惠券'
+        title:'现场发货'
       }
     },
     {
-      path:"/CommentList",
-      name:'CommentList',
-      component:CommentList,
+      path:"/DeliveryOrderDetail",
+      name:'DeliveryOrderDetail',
+      component:DeliveryOrderDetail,
       meta:{
-        title:'我的评价'
+        title:'行程详情'
       }
     },
     {
-      path:"/UpgradeManage",
-      name:'UpgradeManage',
-      component:UpgradeManage,
+      path:"/AppendTours",
+      name:'AppendTours',
+      component:AppendTours,
       meta:{
-        title:'我要升级'
+        title:'新增行程',
+        keepAlive:true
       }
     },
     {
-      path:"/MyStorage",
-      name:'MyStorage',
-      component:MyStorage,
+      path:"/AfterSaleList",
+      name:'AfterSaleList',
+      component:AfterSaleList,
       meta:{
-        title:'我的仓库'
+        title:'售后列表'
       }
     },
     {
-      path:"/ToRestoking",
-      name:'ToRestoking',
-      component:ToRestoking,
+      path:"/ConfirmOrders",
+      name:'ConfirmOrders',
+      component:ConfirmOrders,
       meta:{
-        title:'我要进货'
+        title:'订单结算'
       }
     },
     {
-      path:"/DeliveryOrders",
-      name:'DeliveryOrders',
-      component:DeliveryOrders,
+      path:"/StartCityChooise",
+      name:'StartCityChooise',
+      component:StartCityChooise,
       meta:{
-        title:'提货订单',
+        title:'选择出发城市',
+        keepAlive:true
       }
     },
     {
-      path:"/AllVipOrders",
-      name:'AllVipOrders',
-      component:AllVipOrders,
+      path:"/ToProvinceChooise",
+      name:'ToProvinceChooise',
+      component:ToProvinceChooise,
       meta:{
-        title:'全部订单'
-      }
-    },
-    {
-      path:"/AftersaleList",
-      name:'AftersaleList',
-      component:AftersaleList,
-      meta:{
-        title:'退换货列表'
-      }
-    },
-    {
-      path:"/AllOrders",
-      name:'AllOrders',
-      component:AllOrders,
-      meta:{
-        title:'全部订单',
-      }
-    },
-    {
-      path:"/JuniorOrders",
-      name:'JuniorOrders',
-      component:JuniorOrders,
-      meta:{
-        title:'下级订单'
-      }
-    },
-    {
-      path:"/LogisticsList",
-      name:'LogisticsList',
-      component:LogisticsList,
-      meta:{
-        title:'物流包裹'
-      }
-    },
-    {
-      path:"/LogisticsInfo",
-      name:'LogisticsInfo',
-      component:LogisticsInfo,
-      meta:{
-        title:'物流信息'
+        title:'选择到达省份',
+        keepAlive:true
       }
     },
     {
@@ -545,15 +460,7 @@ export default new Router({
       name:'PaymentMethods',
       component:PaymentMethods,
       meta:{
-        title:'快捷支付'
-      }
-    },
-    {
-      path:"/PaymentMethodOfBank",
-      name:'PaymentMethodOfBank',
-      component:PaymentMethodOfBank,
-      meta:{
-        title:'快捷支付验证'
+        title:'支付成功'
       }
     },
     {
@@ -565,11 +472,85 @@ export default new Router({
       }
     },
     {
-      path:"/OrderDetails",
-      name:'OrderDetails',
-      component:OrderDetails,
+      path:"/OrderPaySuccess",
+      name:'OrderPaySuccess',
+      component:OrderPaySuccess,
       meta:{
-        title:'订单详情'
+        title:'支付成功'
+      }
+    },
+    {
+      path:"/MyRecomment",
+      name:'MyRecomment',
+      component:MyRecomment,
+      meta:{
+        title:'我的推荐'
+      }
+    },
+    {
+      path:"/MyCollation",
+      name:'MyCollation',
+      component:MyCollation,
+      meta:{
+        title:'我的收藏'
+      }
+    },
+    {
+      path:"/GoodDetails",
+      name:'GoodDetails',
+      component:GoodDetails,
+      meta:{
+        title:'商品详情'
+      }
+    },
+    {
+      path:"/ActiveGoodDetails",
+      name:'ActiveGoodDetails',
+      component:ActiveGoodDetails,
+      meta:{
+        title:'活动商品详情'
+      }
+    },
+    {
+      path:"/WithdrawMoney",
+      name:'WithdrawMoney',
+      component:WithdrawMoney,
+      meta:{
+        title:'提现'
+      }
+    },
+    {
+      path:"/MyBalance",
+      name:'MyBalance',
+      component:MyBalance,
+      meta:{
+        title:'我的余额',
+      }
+    },
+    {
+      path:"/NotAccountBalance",
+      name:'NotAccountBalance',
+      component:NotAccountBalance,
+      meta:{
+        title:'未到账余额'
+      }
+    },
+    {
+      path:"/MyCoupon",
+      name:'MyCoupon',
+      component:MyCoupon,
+      meta:{
+        title:'我的优惠券'
+      }
+    },
+    {
+      path:"/CaseGift",
+      name:'CaseGift',
+      component:CaseGift,
+      meta:{
+        title:'兑换礼包',
+        toTopHidden:true,
+        keepAlive:true
       }
     },
   ]

@@ -8,9 +8,9 @@
 
 import axios from 'axios'
 import qs from 'qs'
-import * as config from '../config'
+import * as config from '@/utils/config'
 import router from '../router'
-import * as common from '../common'
+import * as common from '@/utils/common'
 import {Toast} from "vant";
 
 axios.defaults.retry = 5
@@ -54,8 +54,11 @@ service.interceptors.response.use(
             },500)
             break;
           case '106':
-            //未设置支付密码
-            common.toast('请先设置支付密码')
+            //导游认证未授权
+            // common.toast('导游未登录')
+            setTimeout(() => {
+              router.replace({path:'/TourGuideLogin'})
+            })
             break;
           default:
             common.toast(response.data.errorMsg)
@@ -69,7 +72,7 @@ service.interceptors.response.use(
   error => { //失败统一处理
     let config = error.config
     if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
-      common.toast('请求超时')
+      // common.toast('请求超时')
       // if (config.retry == 0){
       //   return
       // }
@@ -122,7 +125,6 @@ service.interceptors.response.use(
     //
     // if(config.__retryCount >= config.retry) {
     //   // Reject with the error
-    //   console.log(config)
     //   return Promise.reject(error);
     // }
     //

@@ -1,54 +1,52 @@
 import Vue from 'vue'
-import * as common from '../../common'
-import * as config from '../../config'
-import api from '../../api/request'
+import * as common from '../../utils/common'
+import * as config from '../../utils/config'
+import httpCli from '../../api/request'
+import store from '../index'
+
 export default {
   state: {
+    loading:true,
     homeList:{},
-    // loading:true
+    hotGoodsListLeft:[],
+    hotGoodsListRight:[]
   },
   getters: {
+
   },
   mutations: {
     setHomeList(state,data){
       state.homeList = data
-      localStorage.setItem('index',JSON.stringify(data))
+      if (state.homeList.bannerList){
+        state.hotGoodsListRight = state.homeList.hotGoodsList.filter((item, index) => ((index + 1) % 2) == 0)
+        state.hotGoodsListLeft = state.homeList.hotGoodsList.filter((item, index) => ((index + 1) % 2) != 0)
+      }
     },
-    setLoaclStorageHomeList(state,data){
-      state.homeList = data
+    setErrorLoading(state,data){
+      state.loading = false
+      store.dispatch('reloadLoading')
+        .then(res => {
+          store.dispatch('getHomeList')
+        })
     }
-    // setLoadingStatus(state){
-    //   if (state.homeList.hotGoodsList){
-    //     state.loading = false
-    //   }
-    // }
   },
   actions: {
-    getHomeList({commit}){
-      return new Promise((resolve,reject)=>{
-        api({
-          url:config.URL_GET_SHOP_LIST,
+    getHomeList({commit,state}){
+      return new Promise((resolve,reject) => {
+        httpCli({
+          url:config.URL_GET_SHOP_LIST
         })
           .then(res => {
+            resolve(res.data)
+            state.loading = false
             if (res.errorCode == 100){
               commit('setHomeList',res.data)
             }
-            resolve(res.data)
           })
           .catch(err => {
             reject(err)
+            commit('setErrorLoading')
           })
-      })
-    },
-    getLoaclStorageHomeList({commit}){
-      return new Promise((resolve,reject) => {
-        if (localStorage.getItem('index')){
-          let localStorageData = JSON.parse(localStorage.getItem('index'))
-          commit('setLoaclStorageHomeList',localStorageData)
-          resolve(localStorageData)
-        }else {
-          reject()
-        }
       })
     }
   }
